@@ -255,8 +255,8 @@ Screenshots should use demo information only.
 
 ## Author
 
-Built by Moosa Mubasir as the foundation for Inkory, a print-shop operations platform.
+Built by Moosa Mubasir 
 
 ---
 
-**Inkory — Print-shop management, simplified.**
+**Inkory — Print-shop management **
