@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+/* ── Reset ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body, #root {
+  min-height: 100vh;
+  background: #070711;
+  color: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  overflow-x: hidden;
+}
+
+/* ── Scrollbars ────────────────────────────────────────────────────── */
+* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.10) transparent; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.20); }
+
+/* ── Selection ─────────────────────────────────────────────────────── */
+::selection { background: rgba(249,115,22,0.30); color: #fff; }
+
+/* ── Keyframes ─────────────────────────────────────────────────────── */
+@keyframes orb-1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(40px,-28px) scale(1.06); }
+  66%     { transform: translate(-24px,20px) scale(0.96); }
+}
+@keyframes orb-2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(-32px,24px) scale(0.94); }
+  66%     { transform: translate(26px,-18px) scale(1.04); }
+}
+@keyframes orb-3 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(18px,32px) scale(1.03); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(44px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.90); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin-reverse { to { transform: rotate(-360deg); } }
+@keyframes ping {
+  75%,100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes pulse-glow {
+  0%,100% { opacity: 0.55; }
+  50%     { opacity: 1; }
+}
+@keyframes bounce-dot {
+  0%,80%,100% { transform: scale(0); opacity: 0; }
+  40%         { transform: scale(1); opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+@keyframes check-draw {
+  from { stroke-dashoffset: 64; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes ring-expand {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@keyframes float-y {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-10px); }
+}
+@keyframes status-appear {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes progress-enter {
+  from { width: 0; }
+  to   { width: var(--w, 0%); }
+}
+@keyframes bar-rise {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* ── Page transition helpers ───────────────────────────────────────── */
+.penter    { animation: slide-up 0.46s cubic-bezier(0.22,1,0.36,1) both; }
+.penter-fast { animation: fade-up 0.30s ease both; }
+
+/* Stagger delays */
+.d0 { animation-delay: 0s; }
+.d1 { animation-delay: 0.06s; }
+.d2 { animation-delay: 0.12s; }
+.d3 { animation-delay: 0.18s; }
+.d4 { animation-delay: 0.24s; }
+.d5 { animation-delay: 0.30s; }
+.d6 { animation-delay: 0.36s; }
+
+/* ── Glass surface ─────────────────────────────────────────────────── */
+.glass {
+  background: linear-gradient(145deg, rgba(255,255,255,0.068) 0%, rgba(255,255,255,0.022) 100%);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    0 8px 40px rgba(0,0,0,0.48),
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.10);
+}
+
+/* ── Skeleton ──────────────────────────────────────────────────────── */
+.skel {
+  background: linear-gradient(100deg,
+    rgba(255,255,255,0.04) 30%,
+    rgba(255,255,255,0.09) 50%,
+    rgba(255,255,255,0.04) 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ── Drop zone states ──────────────────────────────────────────────── */
+.dz-active {
+  border-color: rgba(249,115,22,0.55) !important;
+  background: rgba(249,115,22,0.06) !important;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.22), inset 0 0 32px rgba(249,115,22,0.04) !important;
+}
+
+/* ── Mono font ─────────────────────────────────────────────────────── */
+.mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+
+/* ── Bar chart animation ───────────────────────────────────────────── */
+.bar-animate {
+  transform-origin: bottom;
+  animation: bar-rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── Custom Styled Checkbox ─────────────────────────────────────────── */
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.15s ease;
+  opacity: 0;
+  vertical-align: middle;
+}
+
+/* Hover effects */
+div:hover > div > .custom-checkbox,
+div:hover > .custom-checkbox,
+.custom-checkbox:hover {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Checked state */
+.custom-checkbox:checked,
+.custom-checkbox.is-selected {
+  opacity: 1 !important;
+  background: #22c55e !important;
+  border-color: #22c55e !important;
+}
+
+/* Checkmark icon inside checked state */
+.custom-checkbox:checked::after,
+.custom-checkbox.is-selected::after {
+  content: '';
+  width: 4px;
+  height: 8px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 1px;
+}
+
+/* =========================================================
+   CUSTOMER SERVICE SCREEN — MOBILE RESPONSIVE
+   Desktop layout remains unchanged
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .service-screen-container {
+    max-width: 100% !important;
+    padding: 28px 16px 24px !important;
+  }
+
+  .service-card {
+    padding: 16px !important;
+  }
+
+  .service-card-content {
+    gap: 12px !important;
+  }
+
+  .service-card-icon {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 13px !important;
+  }
+
+  .service-card-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .service-card-title {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+  }
+
+  .service-card-description {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 9px !important;
+  }
+
+  .service-card-features {
+    gap: 4px !important;
+  }
+
+  .service-feature-chip {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+    padding: 3px 6px !important;
+  }
+
+  .service-card-price {
+    gap: 5px !important;
+  }
+
+  .service-card-price span {
+    font-size: 9px !important;
+  }
+}
+
+
+/* Extra-small phones */
+@media (max-width: 380px) {
+
+  .service-screen-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .service-card {
+    padding: 14px !important;
+  }
+
+  .service-card-content {
+    gap: 9px !important;
+  }
+
+  .service-card-icon {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .service-card-title {
+    font-size: 14px !important;
+  }
+
+  .service-card-description {
+    font-size: 11px !important;
+  }
+
+  .service-feature-chip {
+    font-size: 8.5px !important;
+    padding: 2px 5px !important;
+  }
+
+  .service-card-price span {
+    font-size: 8px !important;
+  }
+}
+/* =========================================================
+   CUSTOMER MOBILE ACTION BAR
+   ========================================================= */
+
+.customer-mobile-action-bar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.customer-mobile-action-buttons {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .customer-mobile-action-bar {
+    padding: 12px 16px !important;
+    padding-bottom: calc(
+      12px + env(safe-area-inset-bottom)
+    ) !important;
+  }
+
+  .customer-mobile-action-buttons {
+    width: 100% !important;
+    max-width: none !important;
+    gap: 10px !important;
+  }
+
+  .customer-mobile-action-buttons > * {
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Back button */
+  .customer-mobile-action-buttons > button:first-child {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Main orange button */
+  .customer-mobile-action-buttons > button:last-child {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .customer-mobile-action-bar {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .customer-mobile-action-buttons {
+    gap: 8px !important;
+  }
+
+  .customer-mobile-action-buttons > button:first-child {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .customer-mobile-action-buttons > button:last-child {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    font-size: 14px !important;
+  }
+}

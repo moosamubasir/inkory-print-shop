@@ -1,0 +1,176 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+
+// ─────────────────────────────────────────────
+// ADMIN
+// ─────────────────────────────────────────────
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  name         String   @default("Admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+
+// ─────────────────────────────────────────────
+// ORDERS
+// ─────────────────────────────────────────────
+
+model Order {
+  id              String   @id
+  customer        String
+  phone           String?
+  service         String
+  color           String
+  paper           String
+  copies          Int
+  sides           String
+  files           Int
+  estimatedAmount Float
+  finalAmount     Float?
+  status          String   @default("received")
+  cancelReason    String?
+  notes           String?  @db.Text
+
+  uploadedFiles   OrderFile[]
+
+  // Optional debt record for this online order.
+  ledger          LedgerEntry?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+
+// ─────────────────────────────────────────────
+// ORDER FILES
+// ─────────────────────────────────────────────
+
+model OrderFile {
+  id           Int      @id @default(autoincrement())
+  orderId      String
+  originalName String
+  storedName   String
+  mimeType     String
+  size         Int
+  pages        Int      @default(1)
+  copies       Int      @default(1)
+  color        String?
+  paper        String?
+  sides        String?
+  createdAt    DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+
+// ─────────────────────────────────────────────
+// MENU
+// ─────────────────────────────────────────────
+
+model MenuCategory {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?    @db.Text
+  sortOrder   Int        @default(0)
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  items MenuItem[]
+
+  @@index([sortOrder])
+  @@index([isActive])
+}
+
+
+model MenuItem {
+  id          Int          @id @default(autoincrement())
+  categoryId  Int
+  name        String
+  description String?      @db.Text
+  price       Float
+  unit        String       @default("page")
+  sortOrder   Int          @default(0)
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  category MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+  @@index([sortOrder])
+  @@index([isActive])
+}
+
+
+model MenuSettings {
+  id          Int      @id @default(1)
+  publishedAt DateTime?
+  updatedAt   DateTime @updatedAt
+}
+
+
+// ─────────────────────────────────────────────
+// LEDGER / CUSTOMER DEBT
+// ─────────────────────────────────────────────
+
+model LedgerEntry {
+  id          Int     @id @default(autoincrement())
+
+  // NULL = walk-in customer
+  // Existing Order ID = online order
+  orderId     String? @unique
+
+  customer    String
+  phone       String?
+
+  totalAmount Float
+  amountPaid  Float   @default(0)
+
+  // due / partial / settled
+  status      String  @default("due")
+
+  notes       String? @db.Text
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  order Order? @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  payments LedgerPayment[]
+
+  @@index([customer])
+  @@index([phone])
+  @@index([status])
+  @@index([createdAt])
+}
+
+
+// ─────────────────────────────────────────────
+// LEDGER PAYMENTS
+// ─────────────────────────────────────────────
+
+model LedgerPayment {
+  id        Int      @id @default(autoincrement())
+  ledgerId Int
+  amount   Float
+  note     String?  @db.Text
+  createdAt DateTime @default(now())
+
+  ledger LedgerEntry @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+
+  @@index([ledgerId])
+  @@index([createdAt])
+}
