@@ -1,187 +1,89 @@
-Inkory
+# Inkory
 
-Print-shop management, simplified.
+### Print-shop management, simplified.
 
 Inkory is a QR-based digital print-shop management system. It helps customers upload documents, choose print settings, and track orders while giving shop operators one focused workspace for orders, printing, payments, reports, debts, and storage.
 
 Inkory is currently being developed and tested as a real print-shop workflow before a wider public release.
 
-
-
-
-
-
-
-
-
-
-
-Project goals
+## Project goals
 
 Small print shops often manage files, print instructions, payments, and outstanding balances through messaging apps, notebooks, and disconnected tools. Inkory brings these daily operations into one connected workflow.
 
 The system is designed to make the process easier for both sides:
 
-•
-Customers can submit files without waiting at the counter.
+- Customers can submit files without waiting at the counter.
+- Operators receive complete print instructions with each order.
+- Orders move through a clear status workflow.
+- Payments and outstanding balances remain connected to order history.
+- Uploaded files can be managed with automatic storage cleanup.
 
-•
-Operators receive complete print instructions with each order.
+## Current features
 
-•
-Orders move through a clear status workflow.
+### Customer portal
 
-•
-Payments and outstanding balances remain connected to order history.
+- Document-printing and passport-photo service selection
+- Upload support for PDF, Office documents, and images
+- Automatic document page counting where supported
+- Individual copy selection for each uploaded file
+- File previews during print-option selection
+- Order submission with customer contact details
+- Live order-status tracking
+- Customer-friendly order confirmation
 
-•
-Uploaded files can be managed with automatic storage cleanup.
+### Admin workspace
 
-Current features
+- Administrator login
+- Live order refresh
+- Order filtering and search
+- Separate passport and document views
+- Order-status management
+- Uploaded-file preview, download, and browser print actions
+- Per-file page and copy information
+- Reports and debt ledger in one workspace
+- Website-linked customer balances
+- Manual walk-in debt records
+- Safe order deletion and ledger cleanup
+- Storage usage dashboard
+- Persistent automatic-cleanup toggle
+- Automatic removal of old customer files while preserving order history
 
-Customer portal
+### Order workflow
 
-•
-Document-printing and passport-photo service selection
-
-•
-Upload support for PDF, Office documents, and images
-
-•
-Automatic document page counting where supported
-
-•
-Individual copy selection for each uploaded file
-
-•
-File previews during print-option selection
-
-•
-Order submission with customer contact details
-
-•
-Live order-status tracking
-
-•
-Customer-friendly order confirmation
-
-Admin workspace
-
-•
-Administrator login
-
-•
-Live order refresh
-
-•
-Order filtering and search
-
-•
-Separate passport and document views
-
-•
-Order-status management
-
-•
-Uploaded-file preview, download, and browser print actions
-
-•
-Per-file page and copy information
-
-•
-Reports and debt ledger in one workspace
-
-•
-Website-linked customer balances
-
-•
-Manual walk-in debt records
-
-•
-Safe order deletion and ledger cleanup
-
-•
-Storage usage dashboard
-
-•
-Persistent automatic-cleanup toggle
-
-•
-Automatic removal of old customer files while preserving order history
-
-Order workflow
-
-Plain Text
-
-
+```text
 Received → Reviewing → Printing → Ready → Completed
-
-
+```
 
 Cancelled orders are excluded from active business reports.
 
-Technology stack
+## Technology stack
 
-Frontend
+### Frontend
 
-•
-React
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Lucide Icons
+- PDF.js
+- JSZip
+- PDF-Lib
+- html2canvas
 
-•
-TypeScript
+### Backend
 
-•
-Vite
+- Node.js
+- Express
+- Prisma 7
+- MariaDB/MySQL
+- Multer
+- JWT authentication
+- bcrypt
+- CORS
 
-•
-Tailwind CSS
+## Repository structure
 
-•
-Lucide Icons
-
-•
-PDF.js
-
-•
-JSZip
-
-•
-PDF-Lib
-
-•
-html2canvas
-
-Backend
-
-•
-Node.js
-
-•
-Express
-
-•
-Prisma 7
-
-•
-MariaDB/MySQL
-
-•
-Multer
-
-•
-JWT authentication
-
-•
-bcrypt
-
-•
-CORS
-
-Repository structure
-
-Plain Text
-
-
+```text
 inkory-print-shop/
 ├── backend/
 │   ├── index.js
@@ -212,126 +114,92 @@ inkory-print-shop/
 ├── vite.config.ts
 ├── .gitignore
 └── README.md
+```
 
+## Local development setup
 
-
-Local development setup
-
-Requirements
+### Requirements
 
 Install the following before running Inkory:
 
-•
-Node.js 20 or newer
+- Node.js 20 or newer
+- npm
+- MariaDB or MySQL
+- Git
 
-•
-npm
+### Clone the repository
 
-•
-MariaDB or MySQL
-
-•
-Git
-
-Clone the repository
-
-Bash
-
-
+```bash
 git clone https://github.com/moosamubasir/inkory-print-shop.git
 cd inkory-print-shop
+```
 
+### Install frontend dependencies
 
-
-Install frontend dependencies
-
-Bash
-
-
+```bash
 npm install
+```
 
+### Install backend dependencies
 
-
-Install backend dependencies
-
-Bash
-
-
+```bash
 cd backend
 npm install
 cd ..
+```
 
-
-
-Configure the database
+### Configure the database
 
 Create a local MariaDB/MySQL database for Inkory, then create a file named:
 
-Plain Text
-
-
+```text
 backend/.env
-
-
+```
 
 Example configuration:
 
-Plain Text
-
-
+```env
 DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/inkory_store"
 ADMIN_SEED_PASSWORD="change-this-local-password"
 JWT_SECRET="replace-with-a-long-random-local-secret"
 PORT=5000
+```
 
+Never commit `backend/.env`. Use a separate `.env.example` file for safe documentation.
 
+### Generate Prisma client and apply the schema
 
-Never commit backend/.env. Use a separate .env.example file for safe documentation.
-
-Generate Prisma client and apply the schema
-
-Bash
-
-
+```bash
 cd backend
 npx prisma generate
 npx prisma db push
 cd ..
-
-
+```
 
 Use formal Prisma migrations once the database schema is stable.
 
-Start the backend
+### Start the backend
 
-Bash
-
-
+```bash
 cd backend
 npm run dev
+```
 
-
-
-Start the frontend
+### Start the frontend
 
 Open a second terminal in the project root:
 
-Bash
-
-
+```bash
 npm run dev
-
-
+```
 
 Vite will print the local development URL in the terminal.
 
-Environment and security
+## Environment and security
 
 The following files and folders must remain local:
 
-Plain Text
-
-
+```text
 backend/.env
 node_modules/
 dist/
@@ -340,92 +208,53 @@ backend/storage/
 *.sql
 customer documents
 customer images
-
-
+```
 
 Do not commit:
 
-•
-Database passwords
-
-•
-JWT secrets
-
-•
-Admin passwords
-
-•
-API keys
-
-•
-Customer names and phone numbers in demo screenshots
-
-•
-Uploaded customer documents
-
-•
-Database dumps
+- Database passwords
+- JWT secrets
+- Admin passwords
+- API keys
+- Customer names and phone numbers in demo screenshots
+- Uploaded customer documents
+- Database dumps
 
 If a secret is ever committed, rotate it immediately. Removing it from the newest file does not remove it from Git history.
 
-Product and shop naming
+## Product and shop naming
 
 Inkory is the current product and application brand. The long-term plan is to make the shop identity configurable so that multiple print shops can use Inkory without changing the product identity.
 
-Project status
+## Project status
 
 Inkory is an active development project. The current version is a working print-shop management system under continued testing and improvement.
 
-Screenshots
+## Screenshots
 
-Project screenshots are stored in docs/screenshots/.
+Project screenshots are stored in [`docs/screenshots/`](docs/screenshots/).
 
 The recommended screenshot set is:
 
-1.
-Customer portal home
-
-2.
-Service selection
-
-3.
-File upload
-
-4.
-Per-file print options
-
-5.
-Live order tracking
-
-6.
-Admin orders
-
-7.
-Order details and print actions
-
-8.
-Reports
-
-9.
-Debt ledger
-
-10.
-Storage dashboard
-
-11.
-Settings and pricing
-
-12.
-Inkory loading screen
+1. Customer portal home
+2. Service selection
+3. File upload
+4. Per-file print options
+5. Live order tracking
+6. Admin orders
+7. Order details and print actions
+8. Reports
+9. Debt ledger
+10. Storage dashboard
+11. Settings and pricing
+12. Inkory loading screen
 
 Screenshots should use demo information only.
 
-Author
+## Author
 
 Built by Moosa Mubasir as the foundation for Inkory, a print-shop operations platform.
 
+---
 
-
-
-Inkory — Print-shop management, simplified.
-
+**Inkory — Print-shop management, simplified.**
