@@ -256,7 +256,3 @@ Screenshots should use demo information only.
 ## Author
 
 Built by Moosa Mubasir 
-
----
-
-**Inkory — Print-shop management **
