@@ -5,8 +5,8 @@
 Inkory is a QR-based digital print-shop management system. It helps customers upload documents, choose print settings, and track orders while giving shop operators one focused workspace for orders, printing, payments, reports, debts, and storage.
 
 Inkory is currently being developed and tested as a real print-shop workflow before a wider public release.
-<img width="1080" height="1623" alt="inkory-project-overview (1)" src="https://github.com/user-attachments/assets/e8dbdc1a-3906-440e-ac30-7bf832de35e9" />
 
+![Inkory project overview](https://private-us-east-1.manuscdn.com/sessionFile/gdnxtkPMqjxlsX6u0vDvIg/sandbox/xRqE9KzGRcE54qOHpAIWTR-images_1793188807397_na1fn_L2hvbWUvdWJ1bnR1L2lua29yeS1naXRodWItZmluYWwvZG9jcy9pbmtvcnktcHJvamVjdC1vdmVydmlldw.png?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvZ2RueHRrUE1xanhsc1g2dTB2RHZJZy9zYW5kYm94L3hScUU5S3pHUmNFNTRxT0hwQUlXVFItaW1hZ2VzXzE3OTMxODg4MDczOTdfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwybHVhMjl5ZVMxbmFYUm9kV0l0Wm1sdVlXd3ZaRzlqY3k5cGJtdHZjbmt0Y0hKdmFtVmpkQzF2ZG1WeWRtbGxkdy5wbmciLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQ3MDA4MDB9fX1dfQ__&Key-Pair-Id=K2QY5QTL8JSY6C&Signature=MEQCIEWwDMm5BHxfPGkflQna8n8Isluw6307H4Vhvzllkp9XAiAzmjmKkoHPfIAgtdu1LetZOS0-ptOHZv777oiC0bGt7Q__)
 
 ## Project goals
 
